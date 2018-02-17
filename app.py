@@ -75,6 +75,16 @@ def signup():
 def dashboard():
     return render_template('dashboard.html', name= current_user.username)
 
+@app.route('/profil')
+@login_required
+def profil():
+    return render_template('user.html', name= current_user.username)
+
+@app.route('/buatbaru')
+@login_required
+def buatbaru():
+    return render_template('buatbaru.html', name= current_user.username)
+    
 
 @app.route('/logout')
 @login_required

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% include "header.html" %}
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  {% include "header2.html" %}
+  
+  {% include "leftnavbar.html" %}
+
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          USER TEST
+          <small>Optional description</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+          <li class="active">Here</li>
+        </ol>
+      </section>
+  
+      <!-- Main content -->
+      <section class="content container-fluid">
+  
+        <!--------------------------
+          | Your Page Content Here |
+          -------------------------->
+                    <!-- right column -->
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="box box-info">
+              <div class="box-header with-border">
+                <h3 class="box-title">Creta New Project</h3>
+              </div>
+              <!-- /.box-header -->
+              <!-- form start -->
+              <form class="form-horizontal">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label">nama Project</label>
+  
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" id="namaproject" placeholder="Nama Project">
+                    </div>
+                  </div>
+    
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Deskripsi</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter ..." style="margin: 0px 2.5px 0px 0px; width: 508px; height: 117px;"></textarea>
+                  </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                  <button onclick="cancel()" type="submit" class="btn btn-default">Cancel</button>
+                  <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+  
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+  {% include "footer.html" %}
+  {% include "sidebar.html" %}
+  <div class="control-sidebar-bg"></div>
+</div>
+
+{% include "javascript.html" %}
+<script>
+    function cancel() {
+        document.getElementById(dashboard);
+    }
+    </script>
+
+</body>
+</html>
