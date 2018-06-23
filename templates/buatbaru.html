@@ -22,8 +22,8 @@
           <small>Optional description</small>
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-          <li class="active">Here</li>
+          <li><a href="dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+          <li class="active">Buat Project Baru</li>
         </ol>
       </section>
   
@@ -38,14 +38,14 @@
             <!-- Horizontal Form -->
             <div class="box box-info">
               <div class="box-header with-border">
-                <h3 class="box-title">Creta New Project</h3>
+                <h3 class="box-title">Create New Project</h3>
               </div>
               <!-- /.box-header -->
               <!-- form start -->
               <form class="form-horizontal">
                 <div class="box-body">
                   <div class="form-group">
-                    <label for="input" class="col-sm-2 control-label">nama Project</label>
+                    <label for="input" class="col-sm-2 control-label">Nama Project</label>
   
                     <div class="col-sm-6">
                       <input type="text" class="form-control" id="namaproject" placeholder="Nama Project">
@@ -54,14 +54,111 @@
     
                   <div class="form-group">
                     <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Deskripsi</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..." style="margin: 0px 2.5px 0px 0px; width: 508px; height: 117px;"></textarea>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <textarea class="form-control" rows="3" placeholder="Enter ..." style="margin: 0px 2.5px 0px 0px; height: 117px;width: 543px;max-width: 100%;min-width: 100%;"></textarea>
+
+                    </div>
                   </div>
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Sistem Operasi</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <select class="form-control">
+                        <option value="">pilih sistem operasi</option>
+                        <option value="image">ubuntu 14.04</option>
+                        <option value="image">centos 7</option>
+                        <option value="image">fedora</option>
+                        <option value="image">windows server</option>
+                      </select>
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">CPU</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <select class="form-control">
+                        <option value="">pilih CPU</option>
+                        <option value="image">1 CPU 1GB RAM 20GB Storage</option>
+                        <option value="image">1 CPU 2GB RAM 40GB Storage</option>
+                        <option value="image">1 CPU 4GB RAM 40GB Storage</option>
+                        <option value="image">2 CPU 4 GB RAM 40GB Storage</option>
+                      </select>
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">SSH Key</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <input type="password" class="form-control" placeholder="Enter ...">
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Konfirnmasi SSH Key</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <input type="password" class="form-control" placeholder="Enter ...">
+
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Install Package</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <select name="paketinstall" class="form-control">
+                        <option value="">pilih simpel paket</option>
+                        <option value="manual">Manual</option>
+                        <option value="otomatis">Otomatis</option>
+                        </select>
+
+                    </div>
+                  </div>
+                                    
+                  <div class="form-group webserver">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Web Server</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <select class="form-control">
+                        <option value="">pilih web server</option>
+                        <option value="image">Apache2</option>
+                        <option value="image">Nginx</option>
+                        <option value="image">Node.js</option>
+                        </select>
+
+                    </div>
+                  </div>
+                  <div class="form-group webserver">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Programming Language</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <select class="form-control">
+                        <option value="">pilih Bahasa Pemrograman</option>
+                        <option value="image">PHP</option>
+                        <option value="image">Python Djanggo</option>
+                        <option value="image">Pyton Flask</option>
+                        <option value="image">javascript</option>
+                        </select>
+
+                    </div>
+                  </div>
+                  <div class="form-group webserver">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Database</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <select class="form-control">
+                        <option value="">pilih Database</option>
+                        <option value="image">MySQL</option>
+                        <option value="image">PostgreSQL</option>
+                        <option value="image">Mongodb</option>
+                        </select>
+
+                    </div>
+                  </div>
+                  
                 </div>
+              </form>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                  <button onclick="cancel()" type="submit" class="btn btn-default">Cancel</button>
-                  <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                  <button onclick="cancel()" class="btn btn-default">Cancel</button>
+                  <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">Simpan dan Buat</button>
+                  
                 </div>
+              
                 <!-- /.box-footer -->
               </div>
               <!-- /.box-body -->
@@ -76,6 +173,28 @@
     </div>
     <!-- /.content-wrapper -->
 
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Konfirmasi</h4>
+          </div>
+          <div class="modal-body">
+            <p>Apakah form yang diisi sudah sesuai kebutuhan? &hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Kembali</button>
+            <button type="button" class="btn btn-primary">Simpan dan Lanjutkan</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    
   {% include "footer.html" %}
   {% include "sidebar.html" %}
   <div class="control-sidebar-bg"></div>
@@ -84,8 +203,20 @@
 {% include "javascript.html" %}
 <script>
     function cancel() {
-        document.getElementById(dashboard);
+        // document.getElementById;
+        window.history.back();
     }
+
+    $('.webserver').hide();
+
+    $('select[name="paketinstall"]').change(function(){
+      var val = $(this).val();
+      if(val === 'otomatis'){
+        $('.webserver').show('fade');
+      } else {
+        $('.webserver').hide('fade');
+      }
+    });
     </script>
 
 </body>

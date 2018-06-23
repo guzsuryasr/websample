@@ -22,8 +22,7 @@
           <small>Optional description</small>
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-          <li class="active">Here</li>
+          <li><a href="profil"><i class="fa fa-dashboard"></i>Profil</a></li>
         </ol>
       </section>
   
@@ -33,7 +32,90 @@
         <!--------------------------
           | Your Page Content Here |
           -------------------------->
+          <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="box box-info">
+              <div class="box-header with-border">
+                <h3 class="box-title">EDIT PROFIL</h3>
+              </div>
+              <!-- /.box-header -->
+              <!-- form start -->
+              <form class="form-horizontal">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label">Nama Lengkap</label>
   
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" id="namaproject" placeholder="example : udayana">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label">Email</label>
+  
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" id="namaproject" placeholder="example : udayana@unud.ac.id">
+                    </div>
+                  </div>
+    
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Password Baru</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <input type="password" class="form-control" placeholder="Enter ...">
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Konfirnmasi Password Baru</label>
+                    <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
+                      <input type="password" class="form-control" placeholder="Enter ...">
+
+                    </div>
+                  </div>                  
+                </div>
+              </form>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                  <button onclick="cancel()" class="btn btn-default">Cancel</button>
+                  <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">Simpan</button>
+                  
+                </div>
+              
+                <!-- /.box-footer -->
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+  
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Konfirmasi</h4>
+          </div>
+          <div class="modal-body">
+            <p>Apakah anda ingin menyimpan perubahan&hellip; ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <button type="button" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
       </section>
       <!-- /.content -->
     </div>
@@ -45,5 +127,12 @@
 </div>
 
 {% include "javascript.html" %}
+<script>
+  function cancel() {
+      // document.getElementById;
+      window.history.back();
+  }
+</script>
+
 </body>
 </html>

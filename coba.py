@@ -1,10 +1,22 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, url_for
+import MySQLdb
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\Users\gustu\Music\login\start\database\user.db'
-db = SQLAlchemy(app)
+app =Flask(__name__)
+app.debug = True
 
-class contoh (db.Model):
-    id = db.Column(db.Integer,primary_key=True)
+conn = MySQLdb.connect(host='localhost',user='root',password='',db=takudb)
+
+@app.route('/')
+def index():
+    return render_template('index.html', title='menuawal')
+
+@app.route('/signup')
+def signup():
+    username =str(request.form['user'])
+    username =str(request.form['email'])
+    username =str(request.form['password'])
+
+
+if __name__ =='__main__':
+    app.run(debug=True)
+
