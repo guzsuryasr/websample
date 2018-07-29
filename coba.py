@@ -13,8 +13,8 @@ def index():
 @app.route('/signup')
 def signup():
     username =str(request.form['user'])
-    username =str(request.form['email'])
-    username =str(request.form['password'])
+    email =str(request.form['email'])
+    password =str(request.form['password'])
 
 
 if __name__ =='__main__':

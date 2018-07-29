@@ -15,7 +15,7 @@ app.debug = True
 
 # app.config['SECRET_KEY'] = 'Idabagusrathuekasuryawibawa!'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\Users\gustu\Music\login\start\database\database.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\sqlite/database.db'
 # Bootstrap(app)
 # db = SQLAlchemy(app)
 # login_manager = LoginManager()
@@ -60,7 +60,7 @@ def index():
 
 #     return render_template('login.html', form=form)
 
-# @app.route('/signup', methods=['GET','POST'])
+@app.route('/signup', methods=['GET','POST'])
 # def signup():
 #     form=RegisterForm()
 
@@ -75,7 +75,7 @@ def index():
 #     return render_template('signup.html', form=form)
 
 @app.route('/dashboard')
-#@login_required
+# @login_required
 def dashboard():
     return render_template('dashboard.html')#, name= current_user.username)
 
@@ -91,7 +91,7 @@ def buatbaru():
     
 
 @app.route('/logout')
-#@login_required
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
