@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 import requests
 import json
 from flask_bootstrap import Bootstrap
@@ -45,52 +45,87 @@ app.debug = True
 #     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
 def getflavor():
-        userid = "admin"
-        password = "qwerty"
-        namaproject = "demo"
-        url = 'http://192.168.8.110/identity/v3/auth/tokens'
-        headers = {'content-type': 'application/json'}
-        payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
-        r = requests.post(url, data=json.dumps(payload), headers=headers)
-        print r.headers.get('X-Subject-Token')
-        #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
-        json_data = r.json()
-        r.close()
-        tokens = r.headers.get('X-Subject-Token')
-        url = 'http://192.168.8.110/compute/v2.1/flavors/detail'
-        headers = {'X-Auth-Token':str(tokens)}
-        r = requests.get(url, headers=headers)
-        json_data = r.json()
-        print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
-        r.close()
-        cpu = json_data
-        return json_data
+    userid = "admin"
+    password = "qwerty"
+    namaproject = "demo"
+    url = 'http://192.168.8.110/identity/v3/auth/tokens'
+    headers = {'content-type': 'application/json'}
+    payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
+    r = requests.post(url, data=json.dumps(payload), headers=headers)
+    print r.headers.get('X-Subject-Token')
+    #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+    json_data = r.json()
+    r.close()
+    tokens = r.headers.get('X-Subject-Token')
+    url = 'http://192.168.8.110/compute/v2.1/flavors/detail'
+    headers = {'X-Auth-Token':str(tokens)}
+    r = requests.get(url, headers=headers)
+    json_data = r.json()
+    print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+    r.close()
+    return json_data
 
 def getimages():
-        userid = "admin"
-        password = "qwerty"
-        namaproject = "demo"
-        url = 'http://192.168.8.110/identity/v3/auth/tokens'
-        headers = {'content-type': 'application/json'}
-        payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
-        r = requests.post(url, data=json.dumps(payload), headers=headers)
-        print r.headers.get('X-Subject-Token')
-        #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
-        json_data = r.json()
-        r.close()
-        tokens = r.headers.get('X-Subject-Token')
-        url = 'http://192.168.8.110/compute/v2.1/images/detail'
-        headers = {'X-Auth-Token':str(tokens)}
-        r = requests.get(url, headers=headers)
-        json_data = r.json()
-        print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
-        r.close()
-        return json_data
+    userid = "admin"
+    password = "qwerty"
+    namaproject = "demo"
+    url = 'http://192.168.8.110/identity/v3/auth/tokens'
+    headers = {'content-type': 'application/json'}
+    payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
+    r = requests.post(url, data=json.dumps(payload), headers=headers)
+    print r.headers.get('X-Subject-Token')
+    #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+    json_data = r.json()
+    r.close()
+    tokens = r.headers.get('X-Subject-Token')
+    url = 'http://192.168.8.110/compute/v2.1/images/detail'
+    headers = {'X-Auth-Token':str(tokens)}
+    r = requests.get(url, headers=headers)
+    json_data = r.json()
+    print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+    r.close()
+    return json_data
 
-
+def getTokenAuth():
+    userid = "admin"
+    password = "qwerty"
+    namaproject = "demo"
+    url = 'http://192.168.8.110/identity/v3/auth/tokens'
+    headers = {
+        'content-type': 'application/json'
+    }
+    payload = { 
+        "auth": {
+            "identity": {
+                "methods": ["password"],
+                "password": {
+                    "user": {
+                        "name": userid,
+                        "domain": {
+                             "id": "default"
+                        },
+                        "password": password
+                    }
+                }
+            },
+            "scope": {
+                "project": {
+                    "name": namaproject,
+                    "domain": { 
+                        "id": "default"
+                    }
+                }
+            }
+        }
+    }    
+    r = requests.post(url, data=json.dumps(payload), headers=headers)
+    token = r.headers.get('X-Subject-Token')
+    r.close()
+    return token
+    
 @app.route('/')
 def index():
-   return render_template('index.html')
+    return render_template('index.html')
 
 # @app.route('/login', methods=['GET','POST'])
 # def login():
@@ -130,51 +165,42 @@ def profil():
     return render_template('user.html', name= current_user.username)
 
 @app.route('/buatbaru')
-# @login_required
 def buatbaru():
-    userid = "admin"
-    password = "qwerty"
-    namaproject = "demo"
-    url = 'http://192.168.8.110/identity/v3/auth/tokens'
-    headers = {'content-type': 'application/json'}
-    payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
-    r = requests.post(url, data=json.dumps(payload), headers=headers)
-    print r.headers.get('X-Subject-Token')
-    #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
-    json_data = r.json()
-    r.close()
-    tokens = r.headers.get('X-Subject-Token')
-    url = 'http://192.168.8.110/compute/v2.1/servers'
-    #print tokens
-    #tokenid = token['audit_ids']['token']['id']
-    #print tokenid
-    name = 'surya wibawa'
-    flavor = '2'
-    image = '6537791c-4cd5-44ba-90c0-d96f4e63d1a6'
-    adminPass = 'qwerty'
-    keyname = 'secret'
-    url = 'http://192.168.8.110/compute/v2.1/servers'
-    headers = {'content-type': 'application/json','X-Auth-Token':str(tokens)}
-    payloads = {'server':{'name': name, 'flavorRef':flavor, 'imageRef':image, 'adminPass':adminPass, 'key_name':keyname}}
-    create = requests.post(url, data=json.dumps(payloads), headers=headers)
-    json_data = create.json()
-    print json.dumps(create.json(), sort_keys=True, indent=4, separators=(',', ': '))
-    json_data = create.json()
-    create.close()
-    json_data = create.json()
-    create.close()
-    # headers = {'X-Auth-Token':str(tokens)}
-    # r = requests.get(url, headers=headers)
-    # json_data = r.json()
-    # print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
-    # json_data = r.json()
-    # r.close()
-    #return render_template('coba.html', json_data = json_data)
-    getflavor()
-    getimages()
-
+    json_data = {}
+    json_data.update(getflavor())
+    json_data.update(getimages())
     return render_template('buatbaru.html',json_data = json_data)#, name= current_user.username)
-    
+
+@app.route('/listserver', methods=['POST'])
+def listserver():
+    # get the data form
+    data = request.form
+        
+    # create vm
+    url = 'http://192.168.8.110/compute/v2.1/servers'
+    name = data['namaproject']
+    flavor = data['cpu']
+    image = data['sistem_operasi']
+    adminPass = 'qwerty'
+    keyname = 'adminpass'
+    headers = {
+        'content-type': 'application/json',
+        'X-Auth-Token':str(getTokenAuth())
+    }
+    payloads = {
+        'server': {
+            'name': name,
+            'flavorRef':flavor,
+            'imageRef':image,
+            'adminPass':adminPass,
+            'key_name':keyname
+        }
+    }
+    create = requests.post(url, data=json.dumps(payloads), headers=headers)
+    create.close()
+
+    # return template
+    return render_template('coba.html', data = data)
 
 @app.route('/logout')
 @login_required

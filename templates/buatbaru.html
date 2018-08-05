@@ -42,13 +42,13 @@
               </div>
               <!-- /.box-header -->
               <!-- form start -->
-              <form class="form-horizontal">
+              <form action="http://localhost:5000/listserver" method="POST" class="form-horizontal">
                 <div class="box-body">
                   <div class="form-group">
                     <label for="input" class="col-sm-2 control-label">Nama Project</label>
   
                     <div class="col-sm-6">
-                      <input type="text" class="form-control" id="namaproject" placeholder="Nama Project">
+                      <input type="text" class="form-control" name="namaproject" id="namaproject" placeholder="Nama Project">
                     </div>
                   </div>
     
@@ -62,10 +62,10 @@
                   <div class="form-group">
                     <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Sistem Operasi</label>
                     <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
-                      <select class="form-control">
+                      <select name="sistem_operasi" class="form-control">
                         <option value="">pilih sistem operasi</option>
                         {% for data in json_data['images'] %}
-                        <option value="{{ data.id }}">{{ data.name }}</option>
+                          <option value="{{ data.id }}">{{ data.name }}</option>
                         {% endfor %}
                       </select>
 
@@ -74,12 +74,11 @@
                   <div class="form-group">
                     <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">CPU</label>
                     <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
-                      <select class="form-control">
+                      <select name="cpu" class="form-control">
                         <option value="">pilih CPU</option>
-                        <option value="image">1 CPU 1GB RAM 20GB Storage</option>
-                        <option value="image">1 CPU 2GB RAM 40GB Storage</option>
-                        <option value="image">1 CPU 4GB RAM 40GB Storage</option>
-                        <option value="image">2 CPU 4 GB RAM 40GB Storage</option>
+                        {% for data in json_data['flavors'] %}
+                          <option value="{{ data.id }}">Storage={{ data.disk }} GB, vCPU={{ data.vcpus }}, RAM={{ data.ram }} MB</option>
+                        {% endfor %}
                       </select>
 
                     </div>
@@ -150,13 +149,13 @@
                   </div>
                   
                 </div>
-              </form>
                 <!-- /.box-body -->
                 <div class="box-footer">
                   <button onclick="cancel()" class="btn btn-default">Cancel</button>
-                  <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">Simpan dan Buat</button>
-                  
+                  <!-- <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">Simpan dan Buat</button> -->
+                  <input value="Simpan dan Buat" type="submit" class="btn btn-info pull-right" />
                 </div>
+              </form>
               
                 <!-- /.box-footer -->
               </div>
