@@ -64,10 +64,9 @@
                     <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
                       <select class="form-control">
                         <option value="">pilih sistem operasi</option>
-                        <option value="image">ubuntu 14.04</option>
-                        <option value="image">centos 7</option>
-                        <option value="image">fedora</option>
-                        <option value="image">windows server</option>
+                        {% for data in json_data['images'] %}
+                        <option value="{{ data.id }}">{{ data.name }}</option>
+                        {% endfor %}
                       </select>
 
                     </div>

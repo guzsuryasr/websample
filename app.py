@@ -1,4 +1,6 @@
 from flask import Flask, render_template, redirect, url_for
+import requests
+import json
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
@@ -15,7 +17,7 @@ app.debug = True
 
 # app.config['SECRET_KEY'] = 'Idabagusrathuekasuryawibawa!'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\sqlite/database.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/gustu/websample/database/database.db'
 # Bootstrap(app)
 # db = SQLAlchemy(app)
 # login_manager = LoginManager()
@@ -42,9 +44,53 @@ app.debug = True
 #     username = StringField('username', validators=[InputRequired(), Length(min=4, max=20)])
 #     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
+def getflavor():
+        userid = "admin"
+        password = "qwerty"
+        namaproject = "demo"
+        url = 'http://192.168.8.110/identity/v3/auth/tokens'
+        headers = {'content-type': 'application/json'}
+        payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
+        r = requests.post(url, data=json.dumps(payload), headers=headers)
+        print r.headers.get('X-Subject-Token')
+        #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+        json_data = r.json()
+        r.close()
+        tokens = r.headers.get('X-Subject-Token')
+        url = 'http://192.168.8.110/compute/v2.1/flavors/detail'
+        headers = {'X-Auth-Token':str(tokens)}
+        r = requests.get(url, headers=headers)
+        json_data = r.json()
+        print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+        r.close()
+        cpu = json_data
+        return json_data
+
+def getimages():
+        userid = "admin"
+        password = "qwerty"
+        namaproject = "demo"
+        url = 'http://192.168.8.110/identity/v3/auth/tokens'
+        headers = {'content-type': 'application/json'}
+        payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
+        r = requests.post(url, data=json.dumps(payload), headers=headers)
+        print r.headers.get('X-Subject-Token')
+        #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+        json_data = r.json()
+        r.close()
+        tokens = r.headers.get('X-Subject-Token')
+        url = 'http://192.168.8.110/compute/v2.1/images/detail'
+        headers = {'X-Auth-Token':str(tokens)}
+        r = requests.get(url, headers=headers)
+        json_data = r.json()
+        print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+        r.close()
+        return json_data
+
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+   return render_template('index.html')
 
 # @app.route('/login', methods=['GET','POST'])
 # def login():
@@ -60,7 +106,7 @@ def index():
 
 #     return render_template('login.html', form=form)
 
-@app.route('/signup', methods=['GET','POST'])
+# @app.route('/signup', methods=['GET','POST'])
 # def signup():
 #     form=RegisterForm()
 
@@ -69,25 +115,65 @@ def index():
 #         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
 #         db.session.add(new_user)
 #         db.session.commit()
-
 #         return '<h1> User created </h1>'
 
 #     return render_template('signup.html', form=form)
 
 @app.route('/dashboard')
-# @login_required
+#@login_required
 def dashboard():
     return render_template('dashboard.html')#, name= current_user.username)
 
 @app.route('/profil')
-#@login_required
+@login_required
 def profil():
-    return render_template('user.html')#, name= current_user.username)
+    return render_template('user.html', name= current_user.username)
 
 @app.route('/buatbaru')
-#@login_required
+# @login_required
 def buatbaru():
-    return render_template('buatbaru.html')#, name= current_user.username)
+    userid = "admin"
+    password = "qwerty"
+    namaproject = "demo"
+    url = 'http://192.168.8.110/identity/v3/auth/tokens'
+    headers = {'content-type': 'application/json'}
+    payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
+    r = requests.post(url, data=json.dumps(payload), headers=headers)
+    print r.headers.get('X-Subject-Token')
+    #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+    json_data = r.json()
+    r.close()
+    tokens = r.headers.get('X-Subject-Token')
+    url = 'http://192.168.8.110/compute/v2.1/servers'
+    #print tokens
+    #tokenid = token['audit_ids']['token']['id']
+    #print tokenid
+    name = 'surya wibawa'
+    flavor = '2'
+    image = '6537791c-4cd5-44ba-90c0-d96f4e63d1a6'
+    adminPass = 'qwerty'
+    keyname = 'secret'
+    url = 'http://192.168.8.110/compute/v2.1/servers'
+    headers = {'content-type': 'application/json','X-Auth-Token':str(tokens)}
+    payloads = {'server':{'name': name, 'flavorRef':flavor, 'imageRef':image, 'adminPass':adminPass, 'key_name':keyname}}
+    create = requests.post(url, data=json.dumps(payloads), headers=headers)
+    json_data = create.json()
+    print json.dumps(create.json(), sort_keys=True, indent=4, separators=(',', ': '))
+    json_data = create.json()
+    create.close()
+    json_data = create.json()
+    create.close()
+    # headers = {'X-Auth-Token':str(tokens)}
+    # r = requests.get(url, headers=headers)
+    # json_data = r.json()
+    # print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
+    # json_data = r.json()
+    # r.close()
+    #return render_template('coba.html', json_data = json_data)
+    getflavor()
+    getimages()
+
+    return render_template('buatbaru.html',json_data = json_data)#, name= current_user.username)
     
 
 @app.route('/logout')
