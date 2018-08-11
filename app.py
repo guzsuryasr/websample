@@ -44,13 +44,39 @@ app.debug = True
 #     username = StringField('username', validators=[InputRequired(), Length(min=4, max=20)])
 #     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
+# fungsi untuk menampilkan list kebutuhan CPU VM
 def getflavor():
-    userid = "admin"
+    userid = "gustu"
     password = "qwerty"
-    namaproject = "demo"
+    namaproject = "tugasakhir"
     url = 'http://192.168.8.110/identity/v3/auth/tokens'
-    headers = {'content-type': 'application/json'}
-    payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
+    headers = {
+        'content-type': 'application/json'
+    }
+    payload = { 
+        "auth": {
+            "identity": {
+                "methods": ["password"],
+                "password": {
+                    "user": {
+                        "name": userid,
+                        "domain": {
+                             "id": "default"
+                        },
+                            "password":password
+                    }
+                }
+            },
+            "scope": {
+                "project": {
+                    "name": namaproject,
+                    "domain": {
+                        "id": "default"
+                    }
+                }
+            }
+        }
+    }    
     r = requests.post(url, data=json.dumps(payload), headers=headers)
     print r.headers.get('X-Subject-Token')
     #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
@@ -58,20 +84,48 @@ def getflavor():
     r.close()
     tokens = r.headers.get('X-Subject-Token')
     url = 'http://192.168.8.110/compute/v2.1/flavors/detail'
-    headers = {'X-Auth-Token':str(tokens)}
+    headers = {
+        'X-Auth-Token':str(tokens)
+    }
     r = requests.get(url, headers=headers)
     json_data = r.json()
     print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
     r.close()
     return json_data
 
+# fungsi untuk melihat list sistem operasi yang tersedia
 def getimages():
-    userid = "admin"
+    userid = "gustu"
     password = "qwerty"
-    namaproject = "demo"
+    namaproject = "tugasakhir"
     url = 'http://192.168.8.110/identity/v3/auth/tokens'
-    headers = {'content-type': 'application/json'}
-    payload = { "auth": {"identity": {"methods": ["password"],"password": {"user": {"name": userid,"domain": { "id": "default" },"password":password}}},"scope": {"project": {"name": namaproject,"domain": { "id": "default" }}}}}    
+    headers = {
+        'content-type': 'application/json'
+    }
+    payload = { 
+        "auth": {
+            "identity": {
+                "methods": ["password"],
+                "password": {
+                    "user": {
+                        "name": userid,
+                        "domain": {
+                             "id": "default"
+                        },
+                            "password":password
+                    }
+                }
+            },
+            "scope": {
+                "project": {
+                    "name": namaproject,
+                    "domain": {
+                        "id": "default"
+                    }
+                }
+            }
+        }
+    }
     r = requests.post(url, data=json.dumps(payload), headers=headers)
     print r.headers.get('X-Subject-Token')
     #print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
@@ -79,17 +133,20 @@ def getimages():
     r.close()
     tokens = r.headers.get('X-Subject-Token')
     url = 'http://192.168.8.110/compute/v2.1/images/detail'
-    headers = {'X-Auth-Token':str(tokens)}
+    headers = {
+        'X-Auth-Token':str(tokens)
+    }
     r = requests.get(url, headers=headers)
     json_data = r.json()
     print json.dumps(r.json(), sort_keys=True, indent=4, separators=(',', ': '))
     r.close()
     return json_data
 
+# fungsi untuk autentikasi pada server cloud
 def getTokenAuth():
-    userid = "admin"
+    userid = "gustu"
     password = "qwerty"
-    namaproject = "demo"
+    namaproject = "tugasakhir"
     url = 'http://192.168.8.110/identity/v3/auth/tokens'
     headers = {
         'content-type': 'application/json'
@@ -182,7 +239,7 @@ def listserver():
     flavor = data['cpu']
     image = data['sistem_operasi']
     adminPass = 'qwerty'
-    keyname = 'adminpass'
+    keyname = 'admincode'
     headers = {
         'content-type': 'application/json',
         'X-Auth-Token':str(getTokenAuth())
@@ -200,7 +257,7 @@ def listserver():
     create.close()
 
     # return template
-    return render_template('coba.html', data = data)
+    return render_template('listserver.html', data = data)
 
 @app.route('/logout')
 @login_required

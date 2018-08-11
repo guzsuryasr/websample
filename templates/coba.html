@@ -1,5 +1,6 @@
 <h1> List Server </h1>
 <ul>
-{{data}}
+{% for data in json_data['flavors'] %}
+    <li><h2>{{ data }}</h2></li>
+{% endfor %}
 </ul>
-
