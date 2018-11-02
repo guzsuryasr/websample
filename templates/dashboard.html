@@ -82,49 +82,19 @@
           <!-- Horizontal Form -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">EDIT PROFIL</h3>
+              <h3 class="box-title">Adaptive Thresload graph Server</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal">
+            
               <div class="box-body">
-                <div class="form-group">
-                  <label for="input" class="col-sm-2 control-label">Nama Lengkap</label>
-  
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" id="namaproject" placeholder="example : udayana">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="input" class="col-sm-2 control-label">Email</label>
-  
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" id="namaproject" placeholder="example : udayana@unud.ac.id">
-                  </div>
-                </div>
-  
-                <div class="form-group">
-                  <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Password Baru</label>
-                  <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
-                    <input type="password" class="form-control" placeholder="Enter ...">
-  
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="input" class="col-sm-2 control-label" style="margin-right: 15px">Konfirnmasi Password Baru</label>
-                  <div class="col-sm-6" style="padding-right: 30px; padding-left: 0px;">
-                    <input type="password" class="form-control" placeholder="Enter ...">
-  
-                  </div>
-                </div>                  
+                <div class="chart-container" style="position: relative; height:50vh; width:75vw; margin: 0 auto;">
+                  <canvas id="myChart" width="900" height="250"></canvas>
+                </div>          
               </div>
-            </form>
+            
               <!-- /.box-body -->
-              <div class="box-footer">
-                <button onclick="cancel()" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-default">Simpan</button>
-                
-              </div>
+            
             
               <!-- /.box-footer -->
             </div>
@@ -143,5 +113,108 @@
 </div>
 
 {% include "javascript.html" %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script>
+  const rand = () =>
+  Array.from({ length: 10 }, () => Math.floor(Math.random() * 100));
+
+let data = rand();
+
+function addData(chart, data) {
+  chart.data.datasets.forEach(dataset => {
+    let data = dataset.data;
+    const first = data.shift();
+    data.push(first);
+    dataset.data = data;
+  });
+
+  chart.update();
+}
+
+var ctx = document.getElementById("myChart").getContext("2d");
+var myChart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: ["00:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM", "06:00 AM", "07:00 AM", "01:00 AM", "09:00 AM"],
+    datasets: [
+      {
+        label: "Current month",
+        data: rand(),
+        backgroundColor: ["rgba(113, 88, 203, .15)"],
+        borderColor: ["rgba(113, 88, 203, 1)"],
+        borderWidth: 1,
+        fill: "start"
+      },
+      {
+        label: "Last month",
+        data: rand(),
+        backgroundColor: ["rgba(161, 201, 249, .15)"],
+        borderColor: ["rgba(161, 201, 249, 1)"],
+        borderWidth: 1,
+        fill: "start"
+      }
+    ]
+  },
+  options: {
+    animation: {
+      duration: 250
+    },
+    tooltips: {
+      intersect: false,
+      backgroundColor: "rgba(113, 88, 203, 1)",
+      titleFontSize: 16,
+      titleFontStyle: "400",
+      titleSpacing: 4,
+      titleMarginBottom: 8,
+      bodyFontSize:	12,
+      bodyFontStyle:	'400',
+      bodySpacing: 4,
+      xPadding: 8,
+      yPadding: 8,
+      cornerRadius: 4,
+      displayColors: false,
+      callbacks: {
+        title: function (t, d) {
+          const o = d.datasets.map((ds) => ds.data[t[0].index] + "%")
+          
+          return o.join(', ');
+        },
+        label: function (t, d) {
+          return d.labels[t.index];
+        }
+      }
+    },
+    title: {
+      text: "Threshold Adaptive",
+      display: true
+    },
+    maintainAspectRatio: true,
+    spanGaps: false,
+    elements: {
+      line: {
+        tension: 0.3
+      }
+    },
+    plugins: {
+      filler: {
+        propagate: false
+      }
+    },
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            autoSkip: false,
+            maxRotation: 0
+          }
+        }
+      ]
+    }
+  }
+});
+
+setInterval(() => addData(myChart), 5000);
+
+  </script>
 </body>
 </html>
